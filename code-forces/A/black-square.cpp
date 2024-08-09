@@ -52,14 +52,31 @@ void __f (const char* names, Arg1&& arg1, Args&&... args) {
 
 const int N = 200005;
 
+int clamp(int minv, int v, int maxv) {
+    return max(minv, min(maxv, v));
+}
+
 void solve() {
-	int n, m;
-    cin >> n >> m;
-    bug(n, m);
+    vi vec(4);
+    REPL(i, 0, 4) {
+        cin >> vec[i];
+    }
+
+    string s;
+    cin >> s;
+    int res = 0;
+
+    REPL(i, 0, s.size()) {
+        int a = s[i] - '0';
+        res+=vec[a-1];
+    }
+
+    cout << res << endl;
 }
 
 int32_t main() {
 	ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
+
 	int t = 1;
 	// cin >> t;
 	while (t--) solve();

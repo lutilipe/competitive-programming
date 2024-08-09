@@ -52,14 +52,31 @@ void __f (const char* names, Arg1&& arg1, Args&&... args) {
 
 const int N = 200005;
 
+int clamp(int minv, int v, int maxv) {
+    return max(minv, min(maxv, v));
+}
+
 void solve() {
-	int n, m;
-    cin >> n >> m;
-    bug(n, m);
+    int n;
+    cin >> n;
+    string s;
+    REPL(i, 0, n) {
+        char c;
+        cin >> c;
+        if (!s.size()) {
+            s.push_back(c);
+            continue;
+        }
+        if (c != s.back()) {
+            s.push_back(c);
+        }
+    }
+    cout << n - s.size() << endl;
 }
 
 int32_t main() {
 	ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
+
 	int t = 1;
 	// cin >> t;
 	while (t--) solve();

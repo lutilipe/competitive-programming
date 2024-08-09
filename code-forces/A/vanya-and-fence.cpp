@@ -8,7 +8,6 @@ using namespace std;
 #define pb             push_back
 #define si             set <int>
 #define vi             vector <int>
-#define vii            vector <vector <int>>
 #define pii            pair <int, int>
 #define vpi            vector <pii>
 #define vpp            vector <pair<int, pii>>
@@ -25,11 +24,7 @@ using namespace std;
 #define print(a)       for(auto x : a) cout << x << " "; cout << endl
 #define print1(a)      for(auto x : a) cout << x.F << " " << x.S << endl
 #define print2(a,x,y)  for(int i = x; i < y; i++) cout<< a[i]<< " "; cout << endl
-#define REPL(i,a,b)    for (int i = a; i < b; i++)
-#define REPR(i,a,b)    for (int i = a-1; i >= b; i--)
-#define PI             3.141592653589793238
-#define INF            LONG_LONG_MAX
-#define MOD            1e9+7
+#define REP(x,y)       for (int i = x; i < y; i++)
 
 inline int power(int a, int b) {
 	int x = 1;
@@ -55,11 +50,27 @@ const int N = 200005;
 void solve() {
 	int n, m;
     cin >> n >> m;
-    bug(n, m);
+    int a[n];
+    REP(0,n) {
+        cin >> a[i];
+    }
+
+    int sum = 0;
+
+    REP(0,n) {
+        if (a[i] > m) {
+            sum+=2;
+        } else {
+            sum+=1;
+        }
+    }
+
+    cout << sum << "\n";
 }
 
 int32_t main() {
 	ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
+
 	int t = 1;
 	// cin >> t;
 	while (t--) solve();
