@@ -57,22 +57,13 @@ int clamp(int minv, int v, int maxv) {
 }
 
 void solve() {
-    int n;
-    cin >> n;
-    vpi v(n);
-    REPL(i, 0, n) {
-        int a,b;
-        cin >> a >> b;
-        v[i] = make_pair(a,b);
-    }
-    
-    int res = 0;
-    REPL(i, 0, n) {
-        int c = v[i].S;
-        REPL(j, 0, n) {
-            if (j == i) continue;
-            if (c == v[j].F) res++;
-        }
+    int k, n;
+    cin >> k >> n;
+    int res = 1;
+    int c = k;
+    while ((c % 10) - n && c % 10) {
+        c += k;
+        res++;
     }
     cout << res << endl;
 }
