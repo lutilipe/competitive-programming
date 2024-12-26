@@ -15,7 +15,6 @@ using namespace std;
 #define mii            map <int, int>
 #define mpi            map <pii, int>
 #define spi            set <pii>
-#define zr             (int) 0
 #define endl           "\n"
 #define sz(x)          ((int) x.size())
 #define all(p)         p.begin(), p.end()
@@ -44,6 +43,7 @@ struct PqCompare {
     }
 };
 
+
 inline int power(int a, int b) {
 	int x = 1;
 	while (b)
@@ -54,6 +54,7 @@ inline int power(int a, int b) {
 	}
 	return x;
 }
+
 template <typename Arg1>
 void __f (const char* name, Arg1&& arg1) { cout << name << " : " << arg1 << endl; }
 template <typename Arg1, typename... Args>
@@ -64,10 +65,32 @@ void __f (const char* names, Arg1&& arg1, Args&&... args) {
 
 const int N = 200005;
 
+int check(int v[], int n, int i) {
+    if (i < 0 || i >= n) return -1;
+    return v[i];
+}
+
 void solve() {
-    int n;
-    cin >> n;
-    cout << n;
+    int n, a;
+    cin >> n >> a;
+    int v[n];
+    REPL(i, 0, n) {
+        cin >> v[i];
+    }
+
+    int c = v[a-1];
+    int k = max(n-a, a-1);
+    int i;
+    for (i = 1; i <= k; i++) {
+        int c1 = check(v, n, a-1-i);
+        int c2 = check(v, n, a-1+i);
+        if (c1 && c2) {
+            if (c1 == 1 && c2 == 1) c+=2;
+            else c++;
+        }
+    }
+
+    cout << c << endl;
 }
 
 int32_t main() {
@@ -79,7 +102,7 @@ int32_t main() {
     #endif */
 
 	int t = 1;
-	// cin >> t;
+	//cin >> t;
 	while (t--) solve();
 
 	return 0;

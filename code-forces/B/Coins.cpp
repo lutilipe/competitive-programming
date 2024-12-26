@@ -44,6 +44,7 @@ struct PqCompare {
     }
 };
 
+
 inline int power(int a, int b) {
 	int x = 1;
 	while (b)
@@ -54,6 +55,7 @@ inline int power(int a, int b) {
 	}
 	return x;
 }
+
 template <typename Arg1>
 void __f (const char* name, Arg1&& arg1) { cout << name << " : " << arg1 << endl; }
 template <typename Arg1, typename... Args>
@@ -65,9 +67,8 @@ void __f (const char* names, Arg1&& arg1, Args&&... args) {
 const int N = 200005;
 
 void solve() {
-    int n;
-    cin >> n;
-    cout << n;
+    int n, m;
+
 }
 
 int32_t main() {
@@ -79,7 +80,7 @@ int32_t main() {
     #endif */
 
 	int t = 1;
-	// cin >> t;
+	cin >> t;
 	while (t--) solve();
 
 	return 0;
