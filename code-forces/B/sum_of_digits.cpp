@@ -44,7 +44,6 @@ struct PqCompare {
     }
 };
 
-
 inline int power(int a, int b) {
 	int x = 1;
 	while (b)
@@ -55,7 +54,6 @@ inline int power(int a, int b) {
 	}
 	return x;
 }
-
 template <typename Arg1>
 void __f (const char* name, Arg1&& arg1) { cout << name << " : " << arg1 << endl; }
 template <typename Arg1, typename... Args>
@@ -66,17 +64,36 @@ void __f (const char* names, Arg1&& arg1, Args&&... args) {
 
 const int N = 200005;
 
+int sumofdigits(string n) {
+	int sum = 0;
+	for (int i = 0; i < n.size(); i++) {
+		sum += n[i] - '0';
+	}
+	return sum;
+}
+
 void solve() {
-    
+    string n;
+    cin >> n;
+    int c = 0;
+    int curr = 0;
+    if (n.size() > 1) {
+    	do {
+    		c++;
+	    	curr = sumofdigits(n);
+	    	n = to_string(curr);
+    	} while (curr >= 10);
+    }
+    cout << c << endl;
 }
 
 int32_t main() {
 	ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
 
-    /* #ifndef ONLINE_JUDGE
+    #ifndef ONLINE_JUDGE
         freopen("input.txt",  "r", stdin);
         freopen("output.txt", "w", stdout);
-    #endif */
+    #endif
 
 	int t = 1;
 	// cin >> t;

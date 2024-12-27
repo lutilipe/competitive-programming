@@ -65,9 +65,27 @@ void __f (const char* names, Arg1&& arg1, Args&&... args) {
 const int N = 200005;
 
 void solve() {
-    int n;
-    cin >> n;
-    cout << n;
+    vi v(3, 0);
+    for (int i =0; i < 3; i++) {
+    	char a, b, c;
+    	cin >> a >> c >> b;
+    	if (c == '<') {
+    		v[b-'A']++;
+    	} else {
+    		v[a-'A']++;
+    	}
+    }
+
+    set<int> s(v.begin(), v.end());
+    if (s.size() != 3) {
+    	cout << "Impossible" << endl;
+    } else {
+    	string ans = "000";
+    	for (int i = 0; i < v.size(); i++) {
+    		ans[v[i]] = (char)(i + 'A');
+    	}
+    	cout << ans << endl;
+    }
 }
 
 int32_t main() {
@@ -75,7 +93,7 @@ int32_t main() {
 
     #ifndef ONLINE_JUDGE
         freopen("input.txt",  "r", stdin);
-        // freopen("output.txt", "w", stdout);
+        freopen("output.txt", "w", stdout);
     #endif
 
 	int t = 1;

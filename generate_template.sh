@@ -12,4 +12,8 @@ else
   exit
 fi
 
+if [ ! -f input.txt ]; then
+    touch input.txt
+fi
+
 gvim $filename
