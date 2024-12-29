@@ -67,30 +67,19 @@ const int N = 200005;
 void solve() {
     int n;
     cin >> n;
-    unordered_map<int,int> a;
-    for (int i=0; i<n;i++) {
-        int c;
-        cin >> c;
-        a[c] = i;
+    string s;
+    cin >> s;
+    string ans = "";
+    bool y = s.size() % 2;
+    for (int i = 0; i < s.size(); i++) {
+        if (y) {
+            ans += s[i];
+        } else {
+            ans = s[i] + ans;
+        }
+        y = !y;
     }
-
-    int m;
-    cin >> m;
-    vi b(m);
-
-    for (int i =0; i<m;i++) {
-        cin >> b[i];
-    }
-
-    int cv = 0;
-    int cp = 0;
-
-    for (int i=0;i<m;i++) {
-       cv += a[b[i]] + 1;
-       cp += n-a[b[i]];
-    }
-
-    cout << cv << " " << cp << endl;
+    cout << ans << endl;
 }
 
 int32_t main() {

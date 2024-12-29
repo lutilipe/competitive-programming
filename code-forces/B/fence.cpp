@@ -65,32 +65,31 @@ void __f (const char* names, Arg1&& arg1, Args&&... args) {
 const int N = 200005;
 
 void solve() {
-    int n;
-    cin >> n;
-    unordered_map<int,int> a;
-    for (int i=0; i<n;i++) {
-        int c;
+    int n, k;
+    cin >> n >> k;
+    vi h(n+1);
+    h[0];
+    REPL(i, 1, n+1) {
+        int c ;
         cin >> c;
-        a[c] = i;
+        h[i] = h[i-1] + c;
+    }
+    
+    int m = IMAX;
+    int idx = 0;
+    REPL(i, k, n+1) {
+        int s = h[i] - h[i-k];
+        if (m > s) {
+            m = s;
+            idx = i;
+        }
     }
 
-    int m;
-    cin >> m;
-    vi b(m);
+    // 1 2 6 1 1 7 1
+    // 0 1 3 9 10 11 18 19
 
-    for (int i =0; i<m;i++) {
-        cin >> b[i];
-    }
 
-    int cv = 0;
-    int cp = 0;
-
-    for (int i=0;i<m;i++) {
-       cv += a[b[i]] + 1;
-       cp += n-a[b[i]];
-    }
-
-    cout << cv << " " << cp << endl;
+    cout << idx -k +1 << endl;
 }
 
 int32_t main() {

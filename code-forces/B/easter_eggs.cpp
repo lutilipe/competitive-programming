@@ -67,31 +67,21 @@ const int N = 200005;
 void solve() {
     int n;
     cin >> n;
-    unordered_map<int,int> a;
-    for (int i=0; i<n;i++) {
-        int c;
-        cin >> c;
-        a[c] = i;
+    string s = "ROYGBIV";
+    string ans = "";
+    int d = n / 7;
+    int r = n % 7;
+
+    for (int i = 0; i < d; i++) {
+        ans += s;
     }
 
-    int m;
-    cin >> m;
-    vi b(m);
+    int a = r / 2;
+    
+    ans += s.substr(3 - a + !(r%2), r);
 
-    for (int i =0; i<m;i++) {
-        cin >> b[i];
-    }
-
-    int cv = 0;
-    int cp = 0;
-
-    for (int i=0;i<m;i++) {
-       cv += a[b[i]] + 1;
-       cp += n-a[b[i]];
-    }
-
-    cout << cv << " " << cp << endl;
-}
+    cout << ans << endl;
+} 
 
 int32_t main() {
 	ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);

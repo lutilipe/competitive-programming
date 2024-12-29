@@ -61,37 +61,38 @@ void __f (const char* names, Arg1&& arg1, Args&&... args) {
 	const char* comma = strchr (names + 1, ',');
 	cout.write (names, comma - names) << " : " << arg1 << " | "; __f (comma + 1, args...);
 }
-
+    
 const int N = 200005;
 
 void solve() {
-    int n;
-    cin >> n;
-    unordered_map<int,int> a;
-    for (int i=0; i<n;i++) {
-        int c;
-        cin >> c;
-        a[c] = i;
+    int n, l;
+    cin >> n >> l;
+    vi v(n);
+    for (int i=0;i<n;i++) {
+        cin >> v[i];
     }
 
-    int m;
-    cin >> m;
-    vi b(m);
+    // 15 5 3 7 9 14 0
+    // 0 3 5 7 9 14 15
+    
+    sort(all(v));
 
-    for (int i =0; i<m;i++) {
-        cin >> b[i];
+    double md = IMIN;
+
+    for (int i = 1; i < n; i++) {
+        md = max(md, ((double)v[i] - v[i-1]) / 2);
     }
 
-    int cv = 0;
-    int cp = 0;
-
-    for (int i=0;i<m;i++) {
-       cv += a[b[i]] + 1;
-       cp += n-a[b[i]];
+    if (v[0] != 0) {
+        md = max((double)md, (double)v[0]);
     }
 
-    cout << cv << " " << cp << endl;
-}
+    if (v[n-1] != l) {
+        md = max((double)md, (double)l - v[n-1]);
+    }
+
+    cout << fixed << setprecision(9) << md << endl;
+} 
 
 int32_t main() {
 	ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
