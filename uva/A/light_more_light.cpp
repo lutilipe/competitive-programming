@@ -15,6 +15,7 @@ using namespace std;
 #define mii            map <int, int>
 #define mpi            map <pii, int>
 #define spi            set <pii>
+#define zr             (int) 0
 #define endl           "\n"
 #define sz(x)          ((int) x.size())
 #define all(p)         p.begin(), p.end()
@@ -31,6 +32,17 @@ using namespace std;
 #define PI             3.141592653589793238
 #define INF            LONG_LONG_MAX
 #define MOD            1e9+7
+#define IMAX           LONG_LONG_MAX
+#define IMIN           LONG_LONG_MIN
+
+struct PqCompare {
+    bool operator()(pair<int, int>& a1, pair<int, int>& a2) {
+        if (a2.first != a1.first) {
+            return a1.first > a2.first;
+        }
+        return a1.second > a2.second;
+    }
+};
 
 inline int power(int a, int b) {
 	int x = 1;
@@ -42,7 +54,6 @@ inline int power(int a, int b) {
 	}
 	return x;
 }
-
 template <typename Arg1>
 void __f (const char* name, Arg1&& arg1) { cout << name << " : " << arg1 << endl; }
 template <typename Arg1, typename... Args>
@@ -54,13 +65,27 @@ void __f (const char* names, Arg1&& arg1, Args&&... args) {
 const int N = 200005;
 
 void solve() {
-	int n, m;
-    cin >> n >> m;
-    bug(n, m);
+    int n;
+    while (cin >> n && n) {
+        int sr = sqrt(n);
+        bool ok = power(sr, 2) == n;
+
+        if (ok) {
+            cout << "yes" << endl;
+        } else {
+            cout << "no" << endl;
+        }
+    }
 }
 
 int32_t main() {
 	ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
+
+    #ifndef ONLINE_JUDGE
+        freopen("input.txt",  "r", stdin);
+        // freopen("output.txt", "w", stdout);
+    #endif
+
 	int t = 1;
 	// cin >> t;
 	while (t--) solve();
