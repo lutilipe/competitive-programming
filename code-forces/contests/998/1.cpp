@@ -48,7 +48,7 @@ inline int power(int a, int b) {
 	int x = 1;
 	while (b)
 	{
-		if (b & 1) x *= a;
+            if (b & 1) x *= a;
 		a *= a;
 		b >>= 1;
 	}
@@ -65,9 +65,17 @@ void __f (const char* names, Arg1&& arg1, Args&&... args) {
 const int N = 200005;
 
 void solve() {
-    int n;
-    cin >> n;
-    cout << n;
+    int a1,a2,a4,a5;
+    cin >> a1>>a2>>a4>>a5;
+    unordered_map<int,int> m;
+    m[a1+a2]++;
+    m[a4-a2]++;
+    m[a5-a4]++;
+    int ans = 0;
+    for (auto& it : m) {
+        ans = max(ans, it.second);
+    }
+    cout << ans << endl;
 }
 
 int32_t main() {
@@ -79,7 +87,7 @@ int32_t main() {
     #endif
 
 	int t = 1;
-	// cin >> t;
+    cin >> t;
 	while (t--) solve();
 
 	return 0;

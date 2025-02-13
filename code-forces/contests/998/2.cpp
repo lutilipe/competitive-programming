@@ -65,9 +65,53 @@ void __f (const char* names, Arg1&& arg1, Args&&... args) {
 const int N = 200005;
 
 void solve() {
-    int n;
-    cin >> n;
-    cout << n;
+    int n,m;
+    cin >> n >> m;
+    int deckSize = n*m -1;
+    vii v(n, vi(m, 0));
+    for (int i=0;i<n;i++){
+        for (int j=0;j<m;j++) {
+            cin >> v[i][j];
+        }
+        sort(v[i].begin(), v[i].end());
+    }
+
+    vi order(n,-1);
+    int top = -1;
+
+    priority_queue <pii, vpi, greater<pii>> pq;
+
+
+    for (int j=0;j<m;j++){
+        for (int i = 0; i<n;i++) {
+            pq.push({v[i][j], i+1});
+        }
+
+        int i = 0;
+
+        while (!pq.empty()) {
+            pii t = pq.top();
+            pq.pop();
+
+            if (order[i] == -1) {
+                order[i] = t.S;
+            } else {
+                if (order[i] != t.S || top >= t.F) {
+                    cout << -1 << endl;
+                    return;
+                }
+            }
+
+            top = t.F;
+            i++;
+        }
+    }
+
+    for (int cow : order) {
+        cout << cow << " ";
+    }
+
+    cout << endl;
 }
 
 int32_t main() {
@@ -79,7 +123,7 @@ int32_t main() {
     #endif
 
 	int t = 1;
-	// cin >> t;
+	cin >> t;
 	while (t--) solve();
 
 	return 0;

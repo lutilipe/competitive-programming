@@ -64,10 +64,28 @@ void __f (const char* names, Arg1&& arg1, Args&&... args) {
 
 const int N = 200005;
 
+bool isTriangle(int a, int b, int c) {
+    return a+c > b && b+c>a && c < a+b;
+}
+
 void solve() {
     int n;
     cin >> n;
-    cout << n;
+    vi a(n);
+    for (int i=0;i<n;i++){
+        cin >> a[i];
+    }
+
+
+    sort(all(a));
+    for (int i=0;i<=a.size()-3;i++){
+        if (isTriangle(a[i], a[i+1], a[i+2])) {
+            cout << "YES" << endl;
+            return;
+        }
+    }
+
+    cout << "NO" << endl;
 }
 
 int32_t main() {
@@ -79,7 +97,7 @@ int32_t main() {
     #endif
 
 	int t = 1;
-	// cin >> t;
+        // cin >> t;
 	while (t--) solve();
 
 	return 0;

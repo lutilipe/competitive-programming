@@ -64,10 +64,96 @@ void __f (const char* names, Arg1&& arg1, Args&&... args) {
 
 const int N = 200005;
 
+class DSU {
+
+    vi parent;
+    vi rank;
+
+    public:
+    DSU(int n) {
+        parent.resize(n +1);
+        rank.resize(n+1);
+
+        for (int i=1;i<=n;i++){
+            parent[i] = i;
+        }
+    }
+
+    void unite(int x, int y) {
+        int px = find(x);
+        int py = find(y);
+
+        if (px == py) return;
+
+        if (rank[px] < rank[py])
+            swap(px, py);
+        
+        parent[py] = px;
+
+        if (rank[px] == rank[py])
+            rank[px]++;
+    }
+
+
+    int find(int x) {
+        if (parent[x] == x) {
+            return x;
+        }
+
+        return parent[x] = find(parent[x]);
+    }
+
+    bool same(int x, int y) {
+        return find(x) == find(y);
+    }
+};
+
 void solve() {
-    int n;
-    cin >> n;
-    cout << n;
+    int n,m1,m2;
+    cin >> n>>m1>>m2;
+    DSU* fDSU = new DSU(n);
+    DSU* gDSU = new DSU(n);
+
+    vpi edges_F(m1);
+    vpi edges_G(m2);
+
+    for (int i=0;i<m1;i++){
+        int a,b;
+        cin >> a >> b;
+        edges_F[i] = make_pair(a,b);
+    }
+
+    for (int i=0;i<m2;i++){
+        int a,b;
+        cin >> a >> b;
+        gDSU->unite(a,b);
+        edges_G[i] = make_pair(a,b);
+    }
+    
+    int c =0;
+    
+    for (auto& edge : edges_F) {
+        int u = edge.F;
+        int v = edge.S;
+
+        if (!gDSU->same(u,v)) {
+            c++;
+        } else {
+            fDSU->unite(u,v);
+        }
+    }
+
+    for (auto& edge : edges_G) {
+        int u = edge.F;
+        int v = edge.S;
+
+        if (!fDSU->same(u,v)) {
+            c++;
+            fDSU->unite(u,v);
+        }
+    }
+
+    cout << c << endl;
 }
 
 int32_t main() {
@@ -79,7 +165,7 @@ int32_t main() {
     #endif
 
 	int t = 1;
-	// cin >> t;
+	cin >> t;
 	while (t--) solve();
 
 	return 0;

@@ -64,6 +64,59 @@ void __f (const char* names, Arg1&& arg1, Args&&... args) {
 
 const int N = 200005;
 
+/*
+ * Union(u,v): 
+ *      1) find ultimate parent of u and v (pu and pv);
+ *      2) find rank of pu and pv
+ *      3) connect smaller ranks to larger ranks always
+ *
+ *
+ *
+ * */
+
+class DSU {
+    vi parent;
+    vi rank;
+
+    DSU(int n) {
+        parent.resize(n +1);
+        rank.resize(n+1);
+
+        for (int i=1;i<=n;i++){
+            parent[i] = i;
+        }
+    }
+
+    void unite(int x, int y) {
+        int px = find(x);
+        int py = find(y);
+
+        if (px == py) return;
+
+        if (rank[px] < rank[py])
+            swap(px, py);
+        
+        parent[py] = px;
+
+        if (rank[px] == rank[py])
+            rank[px]++;
+    }
+
+
+    int find(int x) {
+        if (parent[x] == x) {
+            return x;
+        }
+
+        return parent[x] = find(parent[x]);
+    }
+
+    bool same(int x, int y) {
+        return find(x) == find(y);
+    }
+
+};
+
 void solve() {
     int n;
     cin >> n;

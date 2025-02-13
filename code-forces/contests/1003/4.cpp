@@ -65,9 +65,45 @@ void __f (const char* names, Arg1&& arg1, Args&&... args) {
 const int N = 200005;
 
 void solve() {
-    int n;
-    cin >> n;
-    cout << n;
+    int n, m;
+    cin >> n >> m;
+    vi a(n);
+    for (int i = 0; i < n; i++){
+        cin >> a[i];
+    }
+    vi b(m);
+    for (int j = 0; j < m; j++){
+        cin >> b[j];
+    }
+    sort(all(b));
+ 
+
+    int cur = -1000000000000000000LL;
+ 
+    for (int i = 0; i < n; i++) {
+        int candidate = INF;
+ 
+
+        if (a[i] >= cur)
+            candidate = min(candidate, a[i]);
+ 
+
+        int needed = cur + a[i];
+        auto it = lower_bound(b.begin(), b.end(), needed);
+        if (it != b.end()){
+            int candidate_flip = (*it) - a[i];
+            candidate = min(candidate, candidate_flip);
+        }
+
+        if (candidate == INF) {
+            cout << "NO" << "\n";
+            return;
+        }
+
+        cur = candidate;
+    }
+ 
+    cout << "YES" << "\n";
 }
 
 int32_t main() {
@@ -79,7 +115,7 @@ int32_t main() {
     #endif
 
 	int t = 1;
-	// cin >> t;
+	cin >> t;
 	while (t--) solve();
 
 	return 0;

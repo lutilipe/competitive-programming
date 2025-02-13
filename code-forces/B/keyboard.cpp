@@ -65,9 +65,38 @@ void __f (const char* names, Arg1&& arg1, Args&&... args) {
 const int N = 200005;
 
 void solve() {
-    int n;
-    cin >> n;
-    cout << n;
+    int n,m,x;
+    cin >> n >>m>>x;
+    map<char,pair<int,int>> key;
+    for (int i=0;i<n;i++) {
+        for (int j=0;j<m;j++) {
+            char a;
+            cin >>a;
+            key[a]=make_pair(i,j);
+        }
+    }
+    int q;
+    cin >> q;
+    char lc = '0';
+    int ans = 0;
+    while (q--) {
+        char c;
+        cin>>c;
+        bool isUpperCase = (int)c < 97;
+        c = isUpperCase ? (int)c + 32 : c;
+        if (lc != '0' && key.find(lc) != key.end() && key.find(c) != key.end()) {
+            pii d1 = key[lc];
+            pii d2 = key[c];
+            double d = sqrt(power(d1.F-d2.F, 2) + power(d1.S-d2.S, 2));
+            cout << d << endl;
+            if (d > x) {
+                ans++;
+            }
+        }
+        lc = c;
+    }
+
+    cout << (ans ? ans : -1) << endl;
 }
 
 int32_t main() {

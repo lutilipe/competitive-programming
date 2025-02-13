@@ -65,9 +65,32 @@ void __f (const char* names, Arg1&& arg1, Args&&... args) {
 const int N = 200005;
 
 void solve() {
-    int n;
-    cin >> n;
-    cout << n;
+    int n,k;
+    cin >>n>>k;
+    mii m;
+    for (int i=0;i<n;i++){
+        int c;
+        cin >> c;
+        m[c]++;
+    }
+    
+    int score = 0;
+
+    for (auto& c : m) {
+        int diff = k - c.F;
+        if (m.find(diff) != m.end()) {
+            int pairs = min(m[diff], m[c.F]);
+            if (diff == c.F) {
+                pairs = m[c.F] / 2;
+            }
+
+            score+=pairs;
+            if (m[diff] > 0) m[diff]-=pairs;
+            if (m[c.F] > 0) m[c.F]-=pairs;
+        } 
+    }
+
+    cout << score << endl;
 }
 
 int32_t main() {
@@ -79,7 +102,7 @@ int32_t main() {
     #endif
 
 	int t = 1;
-	// cin >> t;
+	cin >> t;
 	while (t--) solve();
 
 	return 0;

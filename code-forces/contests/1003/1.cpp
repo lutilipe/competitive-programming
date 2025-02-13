@@ -65,9 +65,9 @@ void __f (const char* names, Arg1&& arg1, Args&&... args) {
 const int N = 200005;
 
 void solve() {
-    int n;
-    cin >> n;
-    cout << n;
+    string s;
+    cin >> s;
+    cout << s.substr(0, s.size() - 2) + "i" << endl;
 }
 
 int32_t main() {
@@ -79,7 +79,7 @@ int32_t main() {
     #endif
 
 	int t = 1;
-	// cin >> t;
+	cin >> t;
 	while (t--) solve();
 
 	return 0;

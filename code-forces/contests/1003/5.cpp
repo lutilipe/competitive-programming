@@ -65,9 +65,30 @@ void __f (const char* names, Arg1&& arg1, Args&&... args) {
 const int N = 200005;
 
 void solve() {
-    int n;
-    cin >> n;
-    cout << n;
+    int n,m;
+    cin >> n >> m;
+    vpi v(n);
+    for (int i=0;i<n;i++) {
+        int t = 0, k = 0;
+        for (int j=0;j<m;j++) {
+            int x;
+            cin >> x;
+            t+=x;
+            k+=t;
+        }
+        v[i] = {t,k};
+    }
+
+   sort(v.begin(), v.end(), [](const pair<int,int> &a, const pair<int,int> &b) {
+    return a.first > b.first;
+});
+    
+    int ans = 0, curr = 0;
+    for (int i=0;i<n;i++){
+        ans += v[i].S + curr*m;
+        curr += v[i].F;
+    }
+    cout << ans << endl;
 }
 
 int32_t main() {
@@ -79,7 +100,7 @@ int32_t main() {
     #endif
 
 	int t = 1;
-	// cin >> t;
+	cin >> t;
 	while (t--) solve();
 
 	return 0;

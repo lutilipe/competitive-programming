@@ -66,8 +66,19 @@ const int N = 200005;
 
 void solve() {
     int n;
-    cin >> n;
-    cout << n;
+    cin >>n;
+    vi v(n);
+    for (int i =0;i<n;i++){
+       cin >>v[i];
+    }
+    for (int i =0;i<v.size()-1;i++){
+        if (v[i] > v[i+1]){
+            cout<<"no"<<endl;
+            return;
+        }
+        v[i+1]-=v[i];
+    }
+    cout <<"yes"<<endl;
 }
 
 int32_t main() {
@@ -79,7 +90,7 @@ int32_t main() {
     #endif
 
 	int t = 1;
-	// cin >> t;
+	cin >> t;
 	while (t--) solve();
 
 	return 0;
