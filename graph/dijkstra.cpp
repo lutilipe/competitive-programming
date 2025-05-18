@@ -13,7 +13,6 @@ class PQComparator {
     bool operator() (pair<int, int> p1, pair<int, int>p2) { return p1.second > p2.second; }
 };
 
-
 int dijkstra(
     int start,
     int dest,
@@ -21,41 +20,37 @@ int dijkstra(
     unordered_map<int, vector<pair<int, int>>>& adjacencyList
 ) {
     unordered_map<int, int> dist;
-
-    for (auto& it : nodes) {
-        dist[it] = INT_MAX;
-    }
-
     unordered_map<int, bool> visited;
-    for (auto& it : nodes) {
-        visited[it] = false;
+
+    for (int node : nodes) {
+        dist[node] = INT_MAX;
+        visited[node] = false;
     }
 
-    priority_queue<pair<int, int>, vector<pair<int, int>>, PQComparator> pq;
+    priority_queue<pair<int,int>, vector<pair<int,int>>, PQComparator> pq;
 
-    dist[start] = 0;
     pq.push(make_pair(start, 0));
+    dist[start] = 0;
 
     while (!pq.empty()) {
-        pair<int, int> node = pq.top();
+        pair<int,int> top = pq.top();
         pq.pop();
+        int from = top.first;
+        int minValue = top.second;
 
-        int from = node.first;
-        int minValue = node.second;
         visited[from] = true;
 
-        if (dist[from] < minValue) continue;
+        if (minValue > dist[from]) continue;
 
-        vector<pair<int, int>> edges = adjacencyList[from];
-        for (auto& edge : edges) {
-            int to = edge.first;
-            if (visited[to]) {
-                continue;
-            }
-            int newDist = dist[from] + edge.second;
+        for (auto child : adjacencyList[from]) {
+            int to = child.first;
+            int distValue = child.second;
+            if (visited[to]) continue;
+
+            int newDist = distValue + dist[from];
             if (newDist < dist[to]) {
                 dist[to] = newDist;
-                pq.push(make_pair(to, newDist));
+                pq.push(make_pair(to, dist[to]));
             }
         }
     }

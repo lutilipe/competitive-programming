@@ -65,46 +65,39 @@ void __f (const char* names, Arg1&& arg1, Args&&... args) {
 const int N = 200005;
 
 void solve() {
-    int n,m;
-    cin >> n >> m;
-    vi a(n);
-    vi b(m);
-    for (int i=0;i<n;i++){
+    int n;
+    cin >> n;
+    vector<int> a(n);
+    int ones = 0;
+    for (int i = 0; i < n; ++i) {
         cin >> a[i];
+        if (a[i] == 1) {
+            ones++;
+        }
     }
-    for (int i=0;i<m;i++){
-        cin >> b[i];
+    
+    if (ones > 0) {
+        cout << n - ones << endl;
+        return;
     }
-
-    sort(all(b));
-    a[0] = min(a[0], b[0]-a[0]);
-    for (int i=1;i<n;i++){
-        int l =0;
-        int r = m-1;
-
-        while (r > l) {
-            int middle = l + (r-l)/2;
-            int e = b[middle] - a[i];
-            if (e >= a[i-1]) {
-                int c = min(a[i], e);
-                if (c >= a[i-1]) {
-                    a[i] =c;
-                    continue;
-                }
-                int d = max(a[i], e);
-                if (d < a[i-1]) {
-                    cout << "no" << endl;
-                    return;
-                }
-                a[i] = d;
-            } else {
-                l = middle+1;
+    
+    int min_len = n + 1;
+    for (int i = 0; i < n; ++i) {
+        int current_gcd = a[i];
+        for (int j = i + 1; j < n; ++j) {
+            current_gcd = __gcd(current_gcd, a[j]);
+            if (current_gcd == 1) {
+                min_len = min(min_len, j - i + 1);
+                break;
             }
         }
-
     }
-
-    cout << "yes" << endl;
+    
+    if (min_len == n + 1) {
+        cout << -1 << endl;
+    } else {
+        cout << min_len - 1 + n - 1 << endl;
+    }
 }
 
 int32_t main() {
@@ -116,9 +109,8 @@ int32_t main() {
     #endif
 
 	int t = 1;
-	cin >> t;
+	// cin >> t;
 	while (t--) solve();
 
 	return 0;
 }
-

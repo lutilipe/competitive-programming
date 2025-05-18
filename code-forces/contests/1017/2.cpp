@@ -65,46 +65,18 @@ void __f (const char* names, Arg1&& arg1, Args&&... args) {
 const int N = 200005;
 
 void solve() {
-    int n,m;
-    cin >> n >> m;
-    vi a(n);
-    vi b(m);
-    for (int i=0;i<n;i++){
-        cin >> a[i];
-    }
-    for (int i=0;i<m;i++){
-        cin >> b[i];
-    }
+    int n, m, l, r;
+        cin >> n >> m >> l >> r;
 
-    sort(all(b));
-    a[0] = min(a[0], b[0]-a[0]);
-    for (int i=1;i<n;i++){
-        int l =0;
-        int r = m-1;
+        int shrink = n - m;
 
-        while (r > l) {
-            int middle = l + (r-l)/2;
-            int e = b[middle] - a[i];
-            if (e >= a[i-1]) {
-                int c = min(a[i], e);
-                if (c >= a[i-1]) {
-                    a[i] =c;
-                    continue;
-                }
-                int d = max(a[i], e);
-                if (d < a[i-1]) {
-                    cout << "no" << endl;
-                    return;
-                }
-                a[i] = d;
-            } else {
-                l = middle+1;
-            }
-        }
+        int shrinkLeft = shrink / 2;
+        int shrinkRight = shrink - shrinkLeft;
 
-    }
+        int l_prime = l + shrinkLeft;
+        int r_prime = r - shrinkRight;
 
-    cout << "yes" << endl;
+        cout << l_prime << " " << r_prime << "\n";
 }
 
 int32_t main() {
@@ -121,4 +93,3 @@ int32_t main() {
 
 	return 0;
 }
-

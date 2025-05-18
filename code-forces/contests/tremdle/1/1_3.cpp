@@ -54,57 +54,21 @@ inline int power(int a, int b) {
 	}
 	return x;
 }
+
 template <typename Arg1>
 void __f (const char* name, Arg1&& arg1) { cout << name << " : " << arg1 << endl; }
 template <typename Arg1, typename... Args>
 void __f (const char* names, Arg1&& arg1, Args&&... args) {
-	const char* comma = strchr (names + 1, ',');
+    const char* comma = strchr (names + 1, ',');
 	cout.write (names, comma - names) << " : " << arg1 << " | "; __f (comma + 1, args...);
 }
 
 const int N = 200005;
 
 void solve() {
-    int n,m;
-    cin >> n >> m;
-    vi a(n);
-    vi b(m);
-    for (int i=0;i<n;i++){
-        cin >> a[i];
-    }
-    for (int i=0;i<m;i++){
-        cin >> b[i];
-    }
-
-    sort(all(b));
-    a[0] = min(a[0], b[0]-a[0]);
-    for (int i=1;i<n;i++){
-        int l =0;
-        int r = m-1;
-
-        while (r > l) {
-            int middle = l + (r-l)/2;
-            int e = b[middle] - a[i];
-            if (e >= a[i-1]) {
-                int c = min(a[i], e);
-                if (c >= a[i-1]) {
-                    a[i] =c;
-                    continue;
-                }
-                int d = max(a[i], e);
-                if (d < a[i-1]) {
-                    cout << "no" << endl;
-                    return;
-                }
-                a[i] = d;
-            } else {
-                l = middle+1;
-            }
-        }
-
-    }
-
-    cout << "yes" << endl;
+    int n;
+    cin >> n;
+    cout << ((4*n)/gcd(4*n,n+1)+1) << endl;
 }
 
 int32_t main() {
@@ -121,4 +85,3 @@ int32_t main() {
 
 	return 0;
 }
-

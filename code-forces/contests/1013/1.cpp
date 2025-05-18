@@ -65,46 +65,34 @@ void __f (const char* names, Arg1&& arg1, Args&&... args) {
 const int N = 200005;
 
 void solve() {
-    int n,m;
-    cin >> n >> m;
-    vi a(n);
-    vi b(m);
-    for (int i=0;i<n;i++){
-        cin >> a[i];
-    }
-    for (int i=0;i<m;i++){
-        cin >> b[i];
+    int n;
+    cin >> n;
+    vi v(n);
+
+    for (int i = 0;i<n;i++){
+        cin >> v[i];
     }
 
-    sort(all(b));
-    a[0] = min(a[0], b[0]-a[0]);
-    for (int i=1;i<n;i++){
-        int l =0;
-        int r = m-1;
+    string a  = "01032025";
+    unordered_map<int,int> m;
+    for (char c : a) {
+        m[c-'0']++;
+    }
 
-        while (r > l) {
-            int middle = l + (r-l)/2;
-            int e = b[middle] - a[i];
-            if (e >= a[i-1]) {
-                int c = min(a[i], e);
-                if (c >= a[i-1]) {
-                    a[i] =c;
-                    continue;
-                }
-                int d = max(a[i], e);
-                if (d < a[i-1]) {
-                    cout << "no" << endl;
-                    return;
-                }
-                a[i] = d;
-            } else {
-                l = middle+1;
-            }
+    int t =0;
+    for (int i = 0;i<v.size();i++) {
+        if (m[v[i]] > 0) {
+            t++;
+            m[v[i]]--;
         }
 
+        if (t == a.size()) {
+            cout << i +1 << endl;
+            return;
+        }
     }
 
-    cout << "yes" << endl;
+    cout << 0 << endl;
 }
 
 int32_t main() {
@@ -121,4 +109,3 @@ int32_t main() {
 
 	return 0;
 }
-
